@@ -1,0 +1,16 @@
+.cart-pc {
+    display: block;
+    width: 100%;
+}
+.cart-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .cart-pc {
+        display: none;
+    }
+    .cart-mobile {
+        display: flex;
+    }   
+}

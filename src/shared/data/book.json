@@ -1,0 +1,162 @@
+[
+    {
+        "id": "b0a18d9e-f83b-4d56-ae6b-5d3ff06d624e",
+        "title": "Book Title 8",
+        "description": "Book Description 8",
+        "price": 95000,
+        "rate": 3.5,
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
+        "author": {
+          "name": "Author Name 8"
+        },
+        "category": {
+          "name": "Category 8"
+        },
+        "isOutOfStock": true,
+        "isActive": true
+      },
+      {
+        "id": "e6f2e1a8-6169-45a0-a1fc-fa19b7e6c69d",
+        "title": "Book Title 7",
+        "description": "Book Description 7",
+        "price": 110000,
+        "rate": 4.5,
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
+        "author": {
+          "name": "Author Name 7"
+        },
+        "category": {
+          "name": "Category 7"
+        },
+        "isOutOfStock": false,
+        "isActive": false
+      },
+      {
+        "id": "dc3b1a6c-8a68-47c6-8b02-74d3069cf46c",
+        "title": "Book Title 6",
+        "description": "Book Description 6",
+        "price": 80000,
+        "rate": 5,
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
+        "author": {
+          "name": "Author Name 6"
+        },
+        "category": {
+          "name": "Category 6"
+        },
+        "isOutOfStock": false,
+        "isActive": true
+      },
+      {
+        "id": "21efaf17-ebc8-4b02-8a6a-d28b1da93f41",
+        "title": "Book Title 5",
+        "description": "Book Description 5",
+        "price": 120000,
+        "rate": 4,
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
+        "author": {
+          "name": "Author Name 5"
+        },
+        "category": {
+          "name": "Category 5"
+        },
+        "isOutOfStock": true,
+        "isActive": true
+      },
+      {
+        "id": "fa9d29fd-7f20-4e26-8e2a-56afca0e3a30",
+        "title": "Book Title 4",
+        "description": "Book Description 4",
+        "price": 90000,
+        "rate": 3.5,
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
+        "author": {
+          "name": "Author Name 4"
+        },
+        "category": {
+          "name": "Category 4"
+        },
+        "isOutOfStock": false,
+        "isActive": false
+      },
+      {
+        "id": "3c3ed986-5cfb-46c3-8884-c6ebdb3a1082",
+        "title": "Book Title 3",
+        "description": "Book Description 3",
+        "price": 75000,
+        "rate": 4.5,
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
+        "author": {
+          "name": "Author Name 3"
+        },
+        "category": {
+          "name": "Category 3"
+        },
+        "isOutOfStock": true,
+        "isActive": true
+      },
+      {
+        "id": "f1a09e07-2254-49e6-baa7-0df38a1028c6",
+        "title": "Book Title 2",
+        "description": "Book Description 2",
+        "price": 85000,
+        "rate": 4,
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
+        "author": {
+          "name": "Author Name 2"
+        },
+        "category": {
+          "name": "Category 2"
+        },
+        "isOutOfStock": false,
+        "isActive": true
+      },
+      {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f4",
+        "title": "Book Title 1",
+        "description": "Book Description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
+        "author": {
+          "name": "Author Name 1"
+        },
+        "category": {
+          "name": "Category 1"
+        },
+        "isOutOfStock": false,
+        "isActive": true
+      },
+      {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f5",
+        "title": "Book Title 1",
+        "description": "Book Description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
+        "author": {
+          "name": "Author Name 1"
+        },
+        "category": {
+          "name": "Category 1"
+        },
+        "isOutOfStock": false,
+        "isActive": true
+      },
+      {
+        "id": "d6d239eb-481b-4a4b-b49a-b903eddf46f7",
+        "title": "Book Title 1",
+        "description": "Book Description 1",
+        "price": 100000,
+        "rate": 5,
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/neshtech-1b9aa.appspot.com/o/book6.jpg?alt=media&token=383d707b-ad93-4baa-8b2c-906c6ab11d8f",
+        "author": {
+          "name": "Author Name 1"
+        },
+        "category": {
+          "name": "Category 1"
+        },
+        "isOutOfStock": false,
+        "isActive": true
+      }
+]

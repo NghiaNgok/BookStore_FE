@@ -1,0 +1,21 @@
+.login-form {
+  padding: 10px;
+  width: 30%;
+}
+
+.register-form {
+  padding: 10px;
+  width: 30%;
+}
+
+@media (max-width: 768px) {
+  .login-form {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .register-form {
+    padding: 10px;
+    width: 100%;
+  }
+}
