@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { ComponentType, lazy } from "react";
 
-import { AUTH_PATH, CUSTOMER_PATH, ERROR_PATH, SUCCESS_PATH } from "../shared/constants/path";
+import { ADMIN_PATH, AUTH_PATH, CUSTOMER_PATH, ERROR_PATH, SUCCESS_PATH}  from "../shared/constants/path";
 
 const HomePage = lazy(() => import("./home"));
 const ShopPage = lazy(() => import("./shop"));
@@ -12,6 +12,7 @@ const SignUpPage = lazy(() => import("./auth/signup"));
 const ProfilePage = lazy(() => import("./profile"));
 const DetailPage = lazy(() => import("./detail"));
 const OrderPage = lazy(() => import("./order"));
+const AdminPage = lazy(() => import("./admin"));
 
 const PageNotFound = lazy(() => import("./errors/pageNotFound"));
 const ErrorPage = lazy(() => import("./errors/errorPage"));
@@ -91,6 +92,11 @@ const pageRoutes: RouteObject[] = [
     path: CUSTOMER_PATH.ABOUT,
     exact: true,
     component: AboutPage,
+  },
+  {
+    path: ADMIN_PATH.ADMIN,
+    exact: true,
+    component: AdminPage,
   },
 ];
 

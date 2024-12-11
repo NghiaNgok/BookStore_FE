@@ -13,7 +13,7 @@ const HomePage: FC = () => {
   const [filter, setFilter] = useState<BookQuery>({
     sortByEnum: SortBookByEnum.NEW,
     page: 1,
-    limit: 5,
+    limit: 4,
   });
 
   useEffect(() => {

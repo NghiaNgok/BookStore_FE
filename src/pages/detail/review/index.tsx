@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { FC, useEffect, useState } from "react";
 import ReviewView from "./view";
 import {
   IQueryReview,
@@ -13,7 +12,6 @@ import {
 import {
   errorPopUpMessage,
 } from "../../../shared/components/Notification";
-import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../../shared/redux-flow/selector";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
@@ -27,6 +25,7 @@ interface ReviewComponentProps {
   loading: boolean;
   setLoading: (value: boolean) => void;
 }
+
 const ReviewComponent: FC<ReviewComponentProps> = (props) => {
   const { bid, totalRate, loading, setLoading } = props;
 
@@ -39,8 +38,11 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
     bookId: "",
     rate: [],
     page: 1,
-    limit: 10,
+    limit: 5,
+    category: "",
   });
+
+
 
   useEffect(() => {
     if (bid) {
@@ -51,6 +53,8 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
   useEffect(() => {
     handleGetAllReview(filter);
   }, [filter]);
+
+
 
   const handleGetAllReview = async (value: IQueryReview) => {
     try {
@@ -68,6 +72,7 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       console.log(error);
     }
   };
+
   const handleCreateReview = async (value: IReviewInput) => {
     try {
       const result = await createReviewApi(value);
@@ -83,6 +88,7 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       console.log(error);
     }
   };
+
   const handleUpdateRate = async (id: string) => {
     try {
       const result = await fetchUpdateRate(id);
@@ -94,6 +100,7 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       console.log(error);
     }
   };
+
   const onFinishReview = async (values: IReviewInput) => {
     if (!bid) {
       errorPopUpMessage("Create Review failed", "BookId not found");
@@ -105,6 +112,14 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       ...values,
       bookId: bid,
       userId: userStore?.id as string,
+    });
+  };
+
+  const onChangeCategory = (category: string) => {
+    setFilter({
+      ...filter,
+      category,
+      page: 1,
     });
   };
 
@@ -133,6 +148,7 @@ const ReviewComponent: FC<ReviewComponentProps> = (props) => {
       totalItems={totalItems}
       filter={filter}
       onChangePage={onChangePage}
+      onChangeCategory={onChangeCategory}
       formRef={formRef}
       totalRate={totalRate}
       loading={loading}

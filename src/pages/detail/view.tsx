@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC, useState } from "react";
 import { Book, bookPromotion } from "../../shared/constants/types/book.type";
 import {
@@ -25,6 +24,10 @@ interface detailViewProps {
   setLoading: (value: boolean) => void;
 }
 
+const formatToVND = (amount: number): string => {
+  return `${amount.toLocaleString('vi-VN')} VNĐ`;
+};
+
 const infoBookStyle: React.CSSProperties = {
   padding: 10,
   width: "100%",
@@ -34,6 +37,7 @@ const infoBookStyle: React.CSSProperties = {
   backgroundColor: "white",
 };
 const { Text } = Typography;
+
 const DetailView: FC<detailViewProps> = (props) => {
   const { data, quantity, onChangeQuantity, addToCartButton, loading, setLoading } = props;
   const [expanded, setExpanded] = useState(false);
@@ -63,28 +67,27 @@ const DetailView: FC<detailViewProps> = (props) => {
                       <Image width={200} src={data?.imageUrl} />
                     </div>
 
-                    <div>
-                      By <b>{data?.author.name}</b>
-                    </div>
+                    
                     <div>
                       {data?.bookPromotion ? (
                         data.bookPromotion.length > 0 ? (
                           <Flex justify="flex-start" gap={10}>
-                            <Text delete>$ {data.price}</Text>
+                            <Text delete>{formatToVND(data.price)}</Text>
                             <Text strong type="danger">
-                              $
-                              {calculateDiscount(
-                                data.limitDiscount,
-                                data.price,
-                                data.bookPromotion
+                              {formatToVND(
+                                calculateDiscount(
+                                  data.limitDiscount,
+                                  data.price,
+                                  data.bookPromotion
+                                )
                               )}
                             </Text>
                           </Flex>
                         ) : (
-                          <span>$ {data.price}</span>
+                          <span>{formatToVND(data.price)}</span>
                         )
                       ) : (
-                        0
+                        "0 VNĐ"
                       )}
                     </div>
                   </Flex>
@@ -95,19 +98,90 @@ const DetailView: FC<detailViewProps> = (props) => {
                     vertical
                     justify="flex-start"
                     align="flex-start">
-                    <h2>{data?.title}</h2>
-                    <div>
-                      <Typography.Paragraph
-                        ellipsis={{
-                          rows: 10,
-                          expandable: "collapsible",
-                          expanded,
-                          onExpand: (_, info) => setExpanded(info.expanded),
-                        }}
-                        style={{ lineHeight: 2, fontSize: 15 }}>
-                        {data?.description}
-                      </Typography.Paragraph>
-                    </div>
+                  <div
+  style={{
+    display: "flex",
+    flexDirection: "column", // Align blocks vertically
+    alignItems: "center", // Center-align the blocks horizontally
+    justifyContent: "center",
+    gap: "20px", // Space between the two blocks
+    marginTop: "20px", // Top margin
+    width: "100%",
+  }}
+>
+  {/* Title Block */}
+  <div
+    style={{
+      backgroundColor: "#f8f9fa", // Light background
+      padding: "20px", // Padding inside the block
+      borderRadius: "10px", // Rounded edges
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Subtle shadow for elevation
+      width: "80%", // Larger width for the blocks
+      display: "flex", // Flex layout for content alignment
+      flexDirection: "column", // Stack label and content vertically
+      justifyContent: "center", // Center content vertically
+      alignItems: "center", // Center content horizontally
+      textAlign: "center", // Center-align text inside the block
+    }}
+  >
+    <b
+      style={{
+        fontSize: "20px", // Font size for the label
+        color: "#457b9d", // Accent color
+        marginBottom: "10px", // Spacing below the label
+      }}
+    >
+      Title:
+    </b>
+    <h2
+      style={{
+        fontSize: "28px", // Larger font for the content
+        fontWeight: "bold", // Bold text
+        color: "#2c3e50", // Neutral dark color
+        margin: "0", // Remove default margin
+      }}
+    >
+      {data?.title || "Product Title"}
+    </h2>
+  </div>
+
+  {/* Description Block */}
+  <div
+    style={{
+      backgroundColor: "#f8f9fa", // Light background
+      padding: "20px", // Padding inside the block
+      borderRadius: "10px", // Rounded edges
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Subtle shadow for elevation
+      width: "80%", // Larger width for the blocks
+      display: "flex", // Flex layout for content alignment
+      flexDirection: "column", // Stack label and content vertically
+      justifyContent: "center", // Center content vertically
+      alignItems: "center", // Center content horizontally
+      textAlign: "center", // Center-align text inside the block
+    }}
+  >
+    <b
+      style={{
+        fontSize: "20px", // Font size for the label
+        color: "#457b9d", // Accent color
+        marginBottom: "10px", // Spacing below the label
+      }}
+    >
+      Description:
+    </b>
+    <Typography.Paragraph
+      style={{
+        fontSize: "16px", // Text font size
+        color: "#2c3e50", // Neutral text color
+        lineHeight: "1.8", // Line spacing for readability
+        margin: "0", // Remove unnecessary margin
+      }}
+    >
+      {data?.description || "No description available."}
+    </Typography.Paragraph>
+  </div>
+</div>
+
                   </Flex>
                 </Col>
               </Row>
@@ -131,12 +205,13 @@ const DetailView: FC<detailViewProps> = (props) => {
               <Flex justify="space-between" align="flex-start">
                 <b>Total Price</b>
                 <span style={{ color: "red" }}>
-                  $
-                  {calculateDiscount(
-                    data?.limitDiscount as number,
-                    data?.price as number,
-                    data?.bookPromotion as bookPromotion[]
-                  ) * qty}
+                  {formatToVND(
+                    calculateDiscount(
+                      data?.limitDiscount as number,
+                      data?.price as number,
+                      data?.bookPromotion as bookPromotion[]
+                    ) * qty
+                  )}
                 </span>
               </Flex>
               <hr />

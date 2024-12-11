@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { Button, Flex, Spin, Steps } from "antd";
 import { useSelector } from "react-redux";
@@ -22,6 +20,7 @@ const contentStyle: React.CSSProperties = {
   marginTop: 16,
   padding: 20,
 };
+
 interface OrderPageProps {
   setOrderValue: (value: IOrderCreate) => void;
   loading: boolean;
@@ -33,6 +32,11 @@ export enum CurrentStatus {
   PROCESS = "process",
   ERROR = "error",
 }
+
+// Utility function to format prices
+const formatToVND = (amount: number): string => {
+  return `${amount.toLocaleString("vi-VN")} VNĐ`;
+};
 
 const OrderView: React.FC<OrderPageProps> = (props) => {
   const { setOrderValue, loading } = props;
@@ -67,7 +71,7 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
 
   const steps = [
     {
-      title: `Order's infomation`,
+      title: `Order's information`,
       content: (
         <InfoForm
           setValue={setValue}
@@ -110,12 +114,17 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
         <Flex justify="center" style={contentStyle}>
           {steps[current].content}
         </Flex>
-        <div style={{ marginTop: 24 }}>
+        <div style={{ marginTop: 24, textAlign: "center" }}>
+          {/* Display formatted total price */}
+          <div style={{ marginBottom: 16, fontSize: 18, fontWeight: "bold" }}>
+            Total Price: {formatToVND(value.totalPrice || 0)}
+          </div>
           {current < steps.length - 1 && (
             <Button
               disabled={currentStatus !== CurrentStatus.FINISH ? true : false}
               type="primary"
-              onClick={() => next()}>
+              onClick={() => next()}
+            >
               Next
             </Button>
           )}

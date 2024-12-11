@@ -39,9 +39,16 @@ const CartView: FC<CartViewProps> = (props) => {
     loading,
     onClickPlaceOrder,
   } = props;
+
   const userStore = useSelector(userSelector);
 
   const cartItems = data ?? [];
+
+  // Function to format numbers into VNĐ format
+  const formatToVND = (amount: number): string => {
+    return `${amount.toLocaleString("vi-VN")} VNĐ`;
+  };
+
   const columns: TableColumnsType<CartItemType> = [
     {
       title: "Product",
@@ -49,39 +56,36 @@ const CartView: FC<CartViewProps> = (props) => {
       key: "book",
       responsive: ["md"],
       render: (_, item) => (
-        <>
-          <Flex justify="flex-start" align="flex-start">
-            <div style={{ width: "auto", height: "100px", textAlign: "left" }}>
-              <img
-                style={{ borderRadius: 0, height: "100%", objectFit: "cover" }}
-                alt="example"
-                src={item.book.imageUrl}
-              />
-            </div>
+        <Flex justify="flex-start" align="flex-start">
+          <div style={{ width: "auto", height: "100px", textAlign: "left" }}>
+            <img
+              style={{ borderRadius: 0, height: "100%", objectFit: "cover" }}
+              alt="example"
+              src={item.book.imageUrl}
+            />
+          </div>
 
-            <Flex
-              style={{ height: 100, marginLeft: 10 }}
-              vertical
-              justify="center"
-              align="flex-start">
-              <span>{item.book.title}</span>
-              <span>
-                {item.book.price !== item.price / item.quantity ? (
-                  <>
-                    <Flex justify="flex-start" gap={10}>
-                      <Text delete>${item.book.price}</Text>
-                      <Text strong type="danger">
-                        ${item.price / item.quantity}
-                      </Text>
-                    </Flex>
-                  </>
-                ) : (
-                  <>${item.book.price}</>
-                )}
-              </span>
-            </Flex>
+          <Flex
+            style={{ height: 100, marginLeft: 10 }}
+            vertical
+            justify="center"
+            align="flex-start"
+          >
+            <span>{item.book.title}</span>
+            <span>
+              {item.book.price !== item.price / item.quantity ? (
+                <Flex justify="flex-start" gap={10}>
+                  <Text delete>{formatToVND(item.book.price)}</Text>
+                  <Text strong type="danger">
+                    {formatToVND(item.price / item.quantity)}
+                  </Text>
+                </Flex>
+              ) : (
+                <>{formatToVND(item.book.price)}</>
+              )}
+            </span>
           </Flex>
-        </>
+        </Flex>
       ),
     },
     {
@@ -101,35 +105,34 @@ const CartView: FC<CartViewProps> = (props) => {
       title: "Total price",
       dataIndex: "price",
       key: "price",
-      render: (item) => <b style={{ color: "red" }}>$ {item}</b>,
+      render: (item) => <b style={{ color: "red" }}> {formatToVND(item)}</b>,
     },
 
     {
       title: (
-        <>
-          <Button
-            onClick={() => onClickRemoveCart(userStore?.id as string)}
-            type="text"
-            danger
-            size={"small"}>
-            Remove all{" "}
-          </Button>
-        </>
+        <Button
+          onClick={() => onClickRemoveCart(userStore?.id as string)}
+          type="text"
+          danger
+          size={"small"}
+        >
+          Remove all
+        </Button>
       ),
       key: "action",
       render: (_, item) => (
-        <>
-          <Button
-            onClick={() => onClickRemoveCartItem(item.id)}
-            type="text"
-            danger
-            size={"small"}>
-            Remove
-          </Button>
-        </>
+        <Button
+          onClick={() => onClickRemoveCartItem(item.id)}
+          type="text"
+          danger
+          size={"small"}
+        >
+          Remove
+        </Button>
       ),
     },
   ];
+
   return (
     <>
       <Spin spinning={loading} tip="Loading...">
@@ -156,21 +159,20 @@ const CartView: FC<CartViewProps> = (props) => {
                     style={{ backgroundColor: "white" }}
                     extra={
                       <img width={200} alt="logo" src={item.book.imageUrl} />
-                    }>
+                    }
+                  >
                     <Flex gap={10} vertical style={{ margin: "0 30px" }}>
                       <b>{item.book.title}</b>
                       <span>
                         {item.book.price !== item.price / item.quantity ? (
-                          <>
-                            <Flex justify="flex-start" gap={10}>
-                              <Text delete>${item.book.price}</Text>
-                              <Text strong type="danger">
-                                ${item.price / item.quantity}
-                              </Text>
-                            </Flex>
-                          </>
+                          <Flex justify="flex-start" gap={10}>
+                            <Text delete>{formatToVND(item.book.price)}</Text>
+                            <Text strong type="danger">
+                              {formatToVND(item.price / item.quantity)}
+                            </Text>
+                          </Flex>
                         ) : (
-                          <>${item.book.price}</>
+                          <>{formatToVND(item.book.price)}</>
                         )}
                       </span>
                       <Flex justify="space-between" align="center">
@@ -182,13 +184,16 @@ const CartView: FC<CartViewProps> = (props) => {
                             onChangeQuantity(value as number, item)
                           }
                         />
-                        <b style={{ color: "red" }}>$ {item.price}</b>
+                        <b style={{ color: "red" }}>
+                          {formatToVND(item.price)}
+                        </b>
                       </Flex>
                       <Button
                         onClick={() => onClickRemoveCartItem(item.id)}
                         type="text"
                         danger
-                        size={"small"}>
+                        size={"small"}
+                      >
                         Remove
                       </Button>
                     </Flex>
@@ -202,23 +207,26 @@ const CartView: FC<CartViewProps> = (props) => {
               <Card
                 title="CART TOTAL"
                 bordered={false}
-                style={{ width: "100%", border: "1px, solid" }}>
+                style={{ width: "100%", border: "1px, solid" }}
+              >
                 <Flex justify="space-between" align="flex-start">
                   <b>Total Price</b>
                   <span style={{ color: "red", fontWeight: "bold" }}>
-                    $ {totalPrice}
+                    {formatToVND(totalPrice || 0)}
                   </span>
                 </Flex>
                 <hr />
                 <Flex
                   vertical
                   gap="small"
-                  style={{ width: "100%", padding: "0 10px" }}>
+                  style={{ width: "100%", padding: "0 10px" }}
+                >
                   <Button
                     disabled={cartItems.length < 1}
                     type="primary"
                     danger
-                    onClick={onClickPlaceOrder}>
+                    onClick={onClickPlaceOrder}
+                  >
                     Place Order
                   </Button>
                 </Flex>

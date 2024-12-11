@@ -21,3 +21,7 @@ export const ERROR_PATH = {
 export const SUCCESS_PATH = {
   ORDER_SUCCESS: "/order-success"
 }
+
+export const ADMIN_PATH = {
+  ADMIN: "/admin"
+}

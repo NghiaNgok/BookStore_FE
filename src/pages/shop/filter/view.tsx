@@ -80,14 +80,14 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
           />
         </div>
 
-        <div style={filterContainerStyle}>
-          <h3>Author</h3>
+        {/* <div style={filterContainerStyle}>
+          <h3>Shop</h3>
           <Checkbox.Group
             style={{ display: "flex", flexDirection: "column", padding: 5 }}
             options={authorOption}
             onChange={onChangeAuthor}
           />
-        </div>
+        </div> */}
 
         <div style={filterContainerStyle}>
           <h3>Rate</h3>

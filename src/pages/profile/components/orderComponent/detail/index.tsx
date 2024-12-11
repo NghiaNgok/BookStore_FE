@@ -133,7 +133,7 @@ const DetailModal: FC<DetailModalProps> = (props) => {
           </Col>
           <Col md={9} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
             <Card
-              title="ORDER INFOMATION"
+              title="ORDER INFORMATION"
               bordered={false}
               style={containerStle}>
               <Flex justify="space-between" align="flex-start">

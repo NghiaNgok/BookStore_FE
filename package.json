@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/charts": "^2.2.3",
     "@ant-design/icons": "^5.3.7",
     "@apollo/client": "^3.10.4",
     "@apollo/react-hooks": "^4.0.0",

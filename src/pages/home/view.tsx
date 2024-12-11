@@ -75,13 +75,13 @@ const Homeview: FC<HomeViewProps> = (props) => {
           ) : (
             <Empty
               style={{ width: "40rem" }}
-              description={<span>Sorry! No book discount now :(</span>}
+              description={<span>Sorry! No product discount now :(</span>}
             />
           )}
         </Flex>
       </div>
       <div style={{ textAlign: "center" }}>
-        <h1>FEATURED BOOKS</h1>
+        <h1>FEATURED PRODUCTS</h1>
         <Space size="large">
           <Button
             ghost={filter.sortByEnum === SortBookByEnum.NEW}
@@ -105,7 +105,7 @@ const Homeview: FC<HomeViewProps> = (props) => {
             ) : (
               <Empty
                 style={{ width: "40rem" }}
-                description={<span>Sorry! No book recomment now :(</span>}
+                description={<span>Sorry! No product recommend now :</span>}
               />
             )}
           </Flex>

@@ -4,7 +4,7 @@ import { cartSelector } from "../../../../shared/redux-flow/selector";
 import { OrderType } from "../../../../shared/constants/types/order.type";
 import { FC } from "react";
 
-const containerStle: React.CSSProperties = {
+const containerStyle: React.CSSProperties = {
   height: "auto",
   overflow: "auto",
   padding: "0 16px",
@@ -17,6 +17,11 @@ interface FinishFormProps {
   value: OrderType;
 }
 
+// Utility function to format prices
+const formatToVND = (amount: number): string => {
+  return `${amount.toLocaleString("vi-VN")} VNĐ`;
+};
+
 const FinishForm: FC<FinishFormProps> = (props) => {
   const { value } = props;
   const cartStore = useSelector(cartSelector);
@@ -24,8 +29,9 @@ const FinishForm: FC<FinishFormProps> = (props) => {
   const cartItems = cartStore ?? [];
   return (
     <Row gutter={[10, 10]} style={{ width: "100%" }}>
+      {/* Cart Items */}
       <Col md={12} sm={24} xs={24}>
-        <div id="scrollableDiv" style={containerStle}>
+        <div id="scrollableDiv" style={containerStyle}>
           <List
             itemLayout="horizontal"
             dataSource={cartItems}
@@ -33,16 +39,18 @@ const FinishForm: FC<FinishFormProps> = (props) => {
               <List.Item>
                 <List.Item.Meta
                   title={`${item.book.title} (x${item.quantity})`}
-                  description={`$ ${item.book.price}`}
+                  description={formatToVND(item.book.price)}
                 />
-                <div style={{ color: "red" }}>$ {item.price}</div>
+                <div style={{ color: "red" }}>{formatToVND(item.price)}</div>
               </List.Item>
             )}
           />
         </div>
       </Col>
+
+      {/* Order Information */}
       <Col md={12} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
-        <Card title="ORDER INFOMATION" bordered={false} style={containerStle}>
+        <Card title="ORDER INFORMATION" bordered={false} style={containerStyle}>
           <Flex justify="space-between" align="flex-start">
             <b>Customer Name</b>
             <span>{value.customerName}</span>
@@ -57,14 +65,12 @@ const FinishForm: FC<FinishFormProps> = (props) => {
           </Flex>
           <Flex justify="space-between" align="flex-start">
             <b>Payment Method</b>
-            <span>
-              {value.paymentMethod}
-            </span>
+            <span>{value.paymentMethod}</span>
           </Flex>
           <Flex justify="space-between" align="flex-start">
             <b>Total Price</b>
             <span style={{ color: "red", fontWeight: "bold" }}>
-              $ {value.totalPrice}
+              {formatToVND(value.totalPrice)}
             </span>
           </Flex>
         </Card>

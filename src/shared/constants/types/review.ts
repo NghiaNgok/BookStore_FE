@@ -7,6 +7,13 @@ export type ReviewType = {
     fullName: string;
     avatar: string;
   }
+  category: string;
+  overallSentiment: string;
+  scores: {
+          Negative: string;
+          Neutral: string;
+          Positive: string;
+  }
 };
 
 export interface IReviewInput {
@@ -21,6 +28,7 @@ export interface IQueryReview {
   rate?: number[];
   page?: number;
   limit?: number;
+  category?: string; // Added category as an optional property
 }
 
 export interface IResponseReview {

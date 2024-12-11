@@ -21,6 +21,12 @@ const cardStyle: React.CSSProperties = {
 const { Meta } = Card;
 const { Text } = Typography;
 
+// Utility function to format prices in VNĐ
+const formatToVND = (amount: number) => {
+  if (isNaN(amount)) return "";
+  return amount.toLocaleString("vi-VN", { style: "decimal" }) + " VNĐ";
+};
+
 const CardComponent: React.FC<CardComponentProps> = (props) => {
   const { item } = props;
   const navigate = useNavigate();
@@ -29,6 +35,10 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
     localStorage.setItem(PRODUCT_ID, item.id);
     navigate(CUSTOMER_PATH.DETAIL_PRODUCT);
   };
+
+  const discountedPrice = item.bookPromotion.length
+    ? calculateDiscount(item.limitDiscount, item.price, item.bookPromotion)
+    : item.price;
 
   return (
     <Card
@@ -43,24 +53,20 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
             src={item.imageUrl}
           />
         </div>
-      }>
+      }
+    >
       <Flex vertical align="start" style={{ lineHeight: 2 }}>
         <Rate disabled value={item.rate} style={{ fontSize: 15 }} />
         <Meta title={item.title} />
         {item.bookPromotion.length > 0 ? (
           <Flex justify="flex-start" gap={10}>
-            <Text delete>${item.price}</Text>
+            <Text delete>{formatToVND(item.price)}</Text>
             <Text strong type="danger">
-              $
-              {calculateDiscount(
-                item.limitDiscount,
-                item.price,
-                item.bookPromotion
-              )}
+              {formatToVND(discountedPrice)}
             </Text>
           </Flex>
         ) : (
-          <span>${item.price}</span>
+          <Text>{formatToVND(item.price)}</Text>
         )}
       </Flex>
     </Card>

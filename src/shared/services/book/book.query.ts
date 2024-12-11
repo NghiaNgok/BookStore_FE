@@ -65,7 +65,7 @@ export const getDetailBook = (id: string) => {
           category {
               id
               name
-          }
+          } 
           author {
               id
               name

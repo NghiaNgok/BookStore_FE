@@ -6,6 +6,11 @@ import { IOrderList } from "../../../../shared/constants/types/order.type";
 import ShowStatusComponent from "../../../../shared/components/Status";
 import DetailModal from "./detail";
 
+// Utility function to format price
+const formatToVND = (amount: number): string => {
+  return `${amount.toLocaleString("vi-VN")} VNĐ`;
+};
+
 interface OrderComponentViewProps {
   listOrder: IOrderList[] | undefined;
   getOrderList: () => void;
@@ -16,10 +21,12 @@ const OrderComponentView: FC<OrderComponentViewProps> = (props) => {
   const { listOrder, getOrderList, hasMore } = props;
   const [openDetail, setOpenDetail] = useState<boolean>(false);
   const [orderId, setOrderId] = useState<string>();
+
   const onClickOpneModal = (value: string) => {
     setOpenDetail(true);
     setOrderId(value);
-  }
+  };
+
   return (
     <>
       <h3>ORDERS</h3>
@@ -30,24 +37,40 @@ const OrderComponentView: FC<OrderComponentViewProps> = (props) => {
           height: 400,
           overflow: "auto",
           padding: "0 16px",
-        }}>
+        }}
+      >
         <InfiniteScroll
           dataLength={listOrder?.length || 0}
           next={getOrderList}
           hasMore={hasMore}
           loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
           endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-          scrollableTarget="scrollableDiv">
+          scrollableTarget="scrollableDiv"
+        >
           <List
             dataSource={listOrder}
             renderItem={(item) => (
               <List.Item key={item.id}>
                 <List.Item.Meta
-                  title={<Button onClick={() => onClickOpneModal(item.id)} style={{marginLeft: -15, color: 'black', fontWeight: 'bold'}} type="link">{item.id}</Button>}
+                  title={
+                    <Button
+                      onClick={() => onClickOpneModal(item.id)}
+                      style={{
+                        marginLeft: -15,
+                        color: "black",
+                        fontWeight: "bold",
+                      }}
+                      type="link"
+                    >
+                      {item.id}
+                    </Button>
+                  }
                   description={
                     <span>
-                      <b style={{ color: "red" }}>${item.totalPrice}</b> |{" "}
-                      {item.createdAt}
+                      <b style={{ color: "red" }}>
+                        {formatToVND(item.totalPrice)}
+                      </b>{" "}
+                      | {item.createdAt}
                     </span>
                   }
                 />
@@ -57,7 +80,7 @@ const OrderComponentView: FC<OrderComponentViewProps> = (props) => {
           />
         </InfiniteScroll>
       </div>
-      <DetailModal open={openDetail} setOpen={setOpenDetail} orderId={orderId}/>
+      <DetailModal open={openDetail} setOpen={setOpenDetail} orderId={orderId} />
     </>
   );
 };

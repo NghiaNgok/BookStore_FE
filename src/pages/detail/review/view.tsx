@@ -1,27 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  Avatar,
-  Button,
-  Card,
-  Checkbox,
-  Col,
-  Flex,
-  Form,
-  List,
-  Pagination,
-  Rate,
-  Row,
-} from "antd";
+import React, { useEffect, useState } from 'react';
+import { Avatar, Button, Card, Checkbox, Col, Flex, Form, List, Pagination, Rate, Row, Select, Progress } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../../shared/redux-flow/selector";
 import { AUTH_PATH } from "../../../shared/constants/path";
-import {
-  IQueryReview,
-  ReviewType,
-} from "../../../shared/constants/types/review";
+import { IQueryReview, ReviewType } from "../../../shared/constants/types/review";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
+import { getAllSentiment } from "../../../shared/services/review/review.service";
+
+const { Option } = Select;
+
 
 interface ReviewViewProps {
   onFinishReview: (value: any) => void;
@@ -31,6 +20,7 @@ interface ReviewViewProps {
   totalItems: number | undefined;
   filter: IQueryReview;
   onChangePage: (value: number) => void;
+  onChangeCategory: (value: string) => void;
   formRef: any;
   totalRate: number | undefined;
   loading: boolean;
@@ -44,6 +34,8 @@ const ratingOption = [
   { label: "5 star", value: 5 },
 ];
 
+
+
 const ReviewView: FC<ReviewViewProps> = (props) => {
   const {
     onFinishReview,
@@ -52,117 +44,210 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
     totalItems,
     filter,
     onChangePage,
+    onChangeCategory,
     formRef,
     totalRate,
   } = props;
+
   const userStore = useSelector(userSelector);
+
+  const [sentimentSummary, setSentimentSummary] = useState({
+    positive: 0,
+    neutral: 0,
+    negative: 0,
+  });
+
+  useEffect(() => {
+    if (filter.bookId) {
+      fetchSentimentSummary(filter.bookId);
+    }
+  }, [filter.bookId]);
+
+  // Fetch the sentiment summary
+  const fetchSentimentSummary = async (bookId: string) => {
+    try {
+      const response = await getAllSentiment(bookId);
+      const summary = response.data.data.getSentimentSummary;
+      setSentimentSummary({
+        positive: summary.positive,
+        neutral: summary.neutral,
+        negative: summary.negative,
+      });
+    } catch (error) {
+      console.error("Error fetching sentiment summary:", error);
+    }
+  };
+
+ // Hàm xử lý khi người dùng submit review
+ const handleFinishReview = (values: any) => {
+  console.log('Review submitted:', values);
+
+  // Xử lý submit ở đây (ví dụ: gửi review lên server)
+  onFinishReview(values);
+
+  // Reset form sau khi submit
+  formRef.current.resetFields();
+
+  // Hiển thị thông báo xác nhận
+};
+  // Render sentiment score bars
+  const renderScoreBars = (scores: { Positive: string; Neutral: string; Negative: string }) => (
+    <div style={{ marginTop: 10 }}>
+      <div style={{ fontWeight: "bold", marginBottom: 10 }}>
+        Overall Sentiment: {scores.Positive > scores.Neutral && scores.Positive > scores.Negative ? "Positive" : scores.Neutral > scores.Negative ? "Neutral" : "Negative"}
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
+        <span style={{ width: 80, textAlign: 'left', paddingRight: 5 }}>Negative</span>
+        <Progress percent={parseFloat(scores.Negative) * 100} showInfo={false} strokeColor="#1890ff" style={{ flex: 1, height: 8, maxWidth: 160 }} />
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
+        <span style={{ width: 80, textAlign: 'left', paddingRight: 5 }}>Neutral</span>
+        <Progress percent={parseFloat(scores.Neutral) * 100} showInfo={false} strokeColor="#1890ff" style={{ flex: 1, height: 8, maxWidth: 160 }} />
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
+        <span style={{ width: 80, textAlign: 'left', paddingRight: 5 }}>Positive</span>
+        <Progress percent={parseFloat(scores.Positive) * 100} showInfo={false} strokeColor="#1890ff" style={{ flex: 1, height: 8, maxWidth: 160 }} />
+      </div>
+    </div>
+  );
+
   return (
-      <Row gutter={[10, 10]} style={{ marginTop: 10 }}>
-        <Col md={17} sm={24} xs={24}>
-          <Card
-            title="CUSTOMER REVIEWS"
-            bordered={false}
-            style={{ width: "100%", border: "1px, solid" }}>
-            <Flex justify="flex-start" align="center" gap={10}>
-              <Flex
-                justify="flex-start"
-                align="flex-start"
-                vertical
-                style={{ width: "20%" }}>
-                <span>
-                  <span style={{ fontSize: 34, fontWeight: "bold" }}>
-                    {totalRate}
-                  </span>
-                  /5
-                </span>
-                <Rate
-                  style={{ fontSize: 15 }}
-                  allowHalf
-                  value={totalRate}
-                  disabled
-                />
-              </Flex>
-
-              <div style={{ width: "100%" }}>
-                <Card>
-                  <Flex vertical gap={15}>
-                    <Checkbox.Group
-                      style={{
-                        display: "flex",
-                        padding: 5,
-                      }}
-                      options={ratingOption}
-                      onChange={onChangeRating}
-                    />
-                  </Flex>
-                </Card>
-              </div>
-            </Flex>
-            <hr />
-            <List
-              itemLayout="horizontal"
-              dataSource={data}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={<Avatar src={item.user.avatar} />}
-                    title={
-                      <span>
-                        {item.user.fullName} | {item.createdAt}
-                      </span>
-                    }
-                    description={item.content}
-                  />
-                  <Rate style={{ fontSize: 10 }} disabled value={item.rate} />
-                </List.Item>
-              )}
-            />
-            <div style={{ textAlign: "center" }}>
-              <Pagination
-                defaultCurrent={filter.page}
-                total={totalItems}
-                pageSize={filter.limit}
-                onChange={onChangePage}
-              />
-            </div>
-          </Card>
-        </Col>
-        <Col md={7} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
-          <Card
-            title="REVIEW"
-            bordered={false}
-            style={{ width: "100%", border: "1px, solid" }}>
+    <Row gutter={[10, 10]} style={{ marginTop: 10 }}>
+      <Col md={17} sm={24} xs={24}>
+        <Card
+          title="CUSTOMER REVIEWS"
+          bordered={false}
+          style={{ width: "100%", border: "1px, solid" }}
+        >
+          <Flex justify="flex-start" align="center" gap={10}>
             <Flex
+              justify="flex-start"
+              align="flex-start"
               vertical
-              gap="small"
-              style={{ width: "100%", padding: "0 10px" }}>
-              {userStore ? (
-                <Form ref={formRef} layout="vertical" onFinish={onFinishReview}>
-                  <Form.Item label="Content" name="content">
-                    <TextArea rows={4} />
-                  </Form.Item>
-                  <Form.Item name="rate" label="Rate">
-                    <Rate />
-                  </Form.Item>
-                  <hr />
-
-                  <Button
-                    htmlType="submit"
-                    type="primary"
-                    style={{ width: "100%" }}>
-                    Submit Review
-                  </Button>
-                </Form>
-              ) : (
-                <h3 style={{ textAlign: "center" }}>
-                  You need <a href={AUTH_PATH.SIGNIN}>Sigin</a> to write a
-                  review
-                </h3>
-              )}
+              style={{ width: "20%" }}
+            >
+              <span>
+                <span style={{ fontSize: 34, fontWeight: "bold" }}>
+                  {totalRate}
+                </span>
+                /5
+              </span>
+              <Rate style={{ fontSize: 15 }} allowHalf value={totalRate} disabled />
             </Flex>
-          </Card>
-        </Col>
-      </Row>
+
+            <div style={{ width: "100%" }}>
+              <Card>
+                <Flex vertical gap={15}>
+                  <Checkbox.Group
+                    style={{
+                      display: "flex",
+                      padding: 5,
+                    }}
+                    options={ratingOption}
+                    onChange={onChangeRating}
+                  />
+                </Flex>
+              </Card>
+            </div>
+          </Flex>
+          <hr />
+
+          {/* Dropdown filter menu and sentiment summary */}
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
+            <Select
+              defaultValue="Select category"
+              style={{ width: 200 }}
+              onChange={onChangeCategory}
+            >
+              <Option value="None">None</Option>
+              <Option value="Chất lượng sản phẩm">Chất lượng sản phẩm</Option>
+              <Option value="Dịch vụ và hỗ trợ khách hàng">Dịch vụ và hỗ trợ khách hàng</Option>
+              <Option value="Giá cả và chi phí">Giá cả và chi phí</Option>
+              <Option value="Vận chuyển và đóng gói">Vận chuyển và đóng gói</Option>
+              <Option value="Phụ kiện và tính năng bổ sung">Phụ kiện và tính năng bổ sung</Option>
+              <Option value="Trải nghiệm sử dụng">Trải nghiệm sử dụng</Option>
+              <Option value="Thiết kế và hình thức">Thiết kế và hình thức</Option>
+              <Option value="Khác">Khác</Option>
+            </Select>
+            <span style={{ marginLeft: 10 }}>
+              ({sentimentSummary.positive} Positive, {sentimentSummary.neutral} Neutral, {sentimentSummary.negative} Negative)
+            </span>
+          </div>
+
+          <List
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={item.user.avatar} />}
+                  title={
+                    <span>
+                      {item.user.fullName} | {item.createdAt}
+                    </span>
+                  }
+                  description={
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span>{item.content}</span>
+                        <Rate style={{ fontSize: 14 }} disabled value={item.rate} />
+                      </div>
+                      {item.scores && renderScoreBars(item.scores)}
+                    </div>
+                  }
+                />
+              </List.Item>
+            )}
+          />
+          <div style={{ textAlign: "center" }}>
+            <Pagination
+              defaultCurrent={filter.page}
+              total={totalItems}
+              pageSize={filter.limit}
+              onChange={onChangePage}
+            />
+          </div>
+        </Card>
+      </Col>
+      <Col md={7} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
+      <Card
+      title="REVIEW"
+      bordered={false}
+      style={{ width: "100%", border: "1px solid" }}
+    >
+      <Flex vertical gap="small" style={{ width: "100%", padding: "0 10px" }}>
+        {userStore ? (
+          <Form
+            ref={formRef}
+            layout="vertical"
+            onFinish={handleFinishReview}
+          >
+            <Form.Item label="Content" name="content">
+              <TextArea rows={4} />
+            </Form.Item>
+            <Form.Item name="rate" label="Rate">
+              <Rate />
+            </Form.Item>
+            <Button
+              htmlType="submit"
+              type="primary"
+              style={{ width: "100%" }}
+            >
+              Submit Review
+            </Button>
+          </Form>
+        ) : (
+          <h3 style={{ textAlign: "center" }}>
+            You need <a href={AUTH_PATH.SIGNIN}>Signin</a> to write a review
+          </h3>
+        )}
+      </Flex>
+    </Card>
+      </Col>
+    </Row>
   );
 };
 
