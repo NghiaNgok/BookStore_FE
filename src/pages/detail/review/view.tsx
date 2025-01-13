@@ -27,11 +27,11 @@ interface ReviewViewProps {
 }
 
 const ratingOption = [
-  { label: "1 star", value: 1 },
-  { label: "2 star", value: 2 },
-  { label: "3 star", value: 3 },
-  { label: "4 star", value: 4 },
-  { label: "5 star", value: 5 },
+  { label: "1 sao", value: 1 },
+  { label: "2 sao", value: 2 },
+  { label: "3 sao", value: 3 },
+  { label: "4 sao", value: 4 },
+  { label: "5 sao", value: 5 },
 ];
 
 
@@ -94,21 +94,21 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
   const renderScoreBars = (scores: { Positive: string; Neutral: string; Negative: string }) => (
     <div style={{ marginTop: 10 }}>
       <div style={{ fontWeight: "bold", marginBottom: 10 }}>
-        Overall Sentiment: {scores.Positive > scores.Neutral && scores.Positive > scores.Negative ? "Positive" : scores.Neutral > scores.Negative ? "Neutral" : "Negative"}
+        Đánh giá tổng thể: {scores.Positive > scores.Neutral && scores.Positive > scores.Negative ? "Tích cực" : scores.Neutral > scores.Negative ? "Trung tính" : "Tiêu cực"}
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
-        <span style={{ width: 80, textAlign: 'left', paddingRight: 5 }}>Negative</span>
+        <span style={{ width: 80, textAlign: 'left', paddingRight: 5 }}>Tiêu cực</span>
         <Progress percent={parseFloat(scores.Negative) * 100} showInfo={false} strokeColor="#1890ff" style={{ flex: 1, height: 8, maxWidth: 160 }} />
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
-        <span style={{ width: 80, textAlign: 'left', paddingRight: 5 }}>Neutral</span>
+        <span style={{ width: 80, textAlign: 'left', paddingRight: 5 }}>Trung tính</span>
         <Progress percent={parseFloat(scores.Neutral) * 100} showInfo={false} strokeColor="#1890ff" style={{ flex: 1, height: 8, maxWidth: 160 }} />
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
-        <span style={{ width: 80, textAlign: 'left', paddingRight: 5 }}>Positive</span>
+        <span style={{ width: 80, textAlign: 'left', paddingRight: 5 }}>Tích cực</span>
         <Progress percent={parseFloat(scores.Positive) * 100} showInfo={false} strokeColor="#1890ff" style={{ flex: 1, height: 8, maxWidth: 160 }} />
       </div>
     </div>
@@ -118,7 +118,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
     <Row gutter={[10, 10]} style={{ marginTop: 10 }}>
       <Col md={17} sm={24} xs={24}>
         <Card
-          title="CUSTOMER REVIEWS"
+          title="CÁC BÌNH LUẬN CỦA KHÁCH HÀNG"
           bordered={false}
           style={{ width: "100%", border: "1px, solid" }}
         >
@@ -158,22 +158,19 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
           {/* Dropdown filter menu and sentiment summary */}
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
             <Select
-              defaultValue="Select category"
+              defaultValue="Chọn loại bình luận"
               style={{ width: 200 }}
               onChange={onChangeCategory}
             >
-              <Option value="None">None</Option>
+              <Option value="None">Tất cả</Option>
               <Option value="Chất lượng sản phẩm">Chất lượng sản phẩm</Option>
               <Option value="Dịch vụ và hỗ trợ khách hàng">Dịch vụ và hỗ trợ khách hàng</Option>
               <Option value="Giá cả và chi phí">Giá cả và chi phí</Option>
               <Option value="Vận chuyển và đóng gói">Vận chuyển và đóng gói</Option>
-              <Option value="Phụ kiện và tính năng bổ sung">Phụ kiện và tính năng bổ sung</Option>
-              <Option value="Trải nghiệm sử dụng">Trải nghiệm sử dụng</Option>
-              <Option value="Thiết kế và hình thức">Thiết kế và hình thức</Option>
               <Option value="Khác">Khác</Option>
             </Select>
             <span style={{ marginLeft: 10 }}>
-              ({sentimentSummary.positive} Positive, {sentimentSummary.neutral} Neutral, {sentimentSummary.negative} Negative)
+              ({sentimentSummary.positive} Tích cực, {sentimentSummary.neutral} Trung tính, {sentimentSummary.negative} Tích cực)
             </span>
           </div>
 
@@ -214,7 +211,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
       </Col>
       <Col md={7} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
       <Card
-      title="REVIEW"
+      title="ĐÁNH GIÁ"
       bordered={false}
       style={{ width: "100%", border: "1px solid" }}
     >
@@ -225,10 +222,10 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
             layout="vertical"
             onFinish={handleFinishReview}
           >
-            <Form.Item label="Content" name="content">
+            <Form.Item label="NỘI DUNG ĐÁNH GIÁ" name="content">
               <TextArea rows={4} />
             </Form.Item>
-            <Form.Item name="rate" label="Rate">
+            <Form.Item name="rate" label="ĐÁNH GIÁ">
               <Rate />
             </Form.Item>
             <Button
@@ -236,7 +233,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
               type="primary"
               style={{ width: "100%" }}
             >
-              Submit Review
+              XÁC NHẬN 
             </Button>
           </Form>
         ) : (

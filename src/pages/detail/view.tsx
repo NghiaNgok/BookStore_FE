@@ -131,7 +131,7 @@ const DetailView: FC<detailViewProps> = (props) => {
         marginBottom: "10px", // Spacing below the label
       }}
     >
-      Title:
+      TÊN SẢN PHẨM:
     </b>
     <h2
       style={{
@@ -167,7 +167,7 @@ const DetailView: FC<detailViewProps> = (props) => {
         marginBottom: "10px", // Spacing below the label
       }}
     >
-      Description:
+      MÔ TẢ SẢN PHẨM:
     </b>
     <Typography.Paragraph
       style={{
@@ -189,7 +189,7 @@ const DetailView: FC<detailViewProps> = (props) => {
           </Col>
           <Col md={7} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
             <Card
-              title="PRICE"
+              title="GIÁ BÁN"
               bordered={false}
               style={{ width: "100%", border: "1px, solid" }}>
               <div style={{ textAlign: "center" }}>
@@ -203,7 +203,7 @@ const DetailView: FC<detailViewProps> = (props) => {
               </div>
               <hr />
               <Flex justify="space-between" align="flex-start">
-                <b>Total Price</b>
+                <b>THÀNH TIỀN</b>
                 <span style={{ color: "red" }}>
                   {formatToVND(
                     calculateDiscount(
@@ -223,7 +223,7 @@ const DetailView: FC<detailViewProps> = (props) => {
                   type="primary"
                   onClick={addToCartButton}
                   icon={<ShoppingCartOutlined />}>
-                  Add To Cart
+                  Thêm vào giỏ hàng
                 </Button>
               </Flex>
             </Card>

@@ -40,7 +40,7 @@ const ImageUpload: React.FC<ImageUploadProps> = (props) => {
   return (
     <Upload customRequest={uploadImage} showUploadList={false}>
       <Button icon={<UploadOutlined />} loading={loading}>
-        Upload Image
+        Tải ảnh lên
       </Button>
     </Upload>
   );

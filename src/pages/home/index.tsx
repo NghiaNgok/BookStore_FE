@@ -17,29 +17,12 @@ const HomePage: FC = () => {
   });
 
   useEffect(() => {
-    findAllBooksOnSale();
-  }, []);
+    if (filter.sortByEnum === SortBookByEnum.NEW) {
+      findAllBooksFeatured(filter);  // Giữ nguyên API cũ khi "Mới"
+    }
+  }, [filter]);
 
-  useEffect(() => {
-    findAllBooksFeatured(filter);
-  }, [filter])
-
-  const findAllBooksOnSale = () => {
-    fetchAllBooks({
-      sortByEnum: SortBookByEnum.ON_SALE,
-      page: 1,
-      limit: 5,
-    })
-      .then((res) => {
-        const responseData = res.data.data.findAllBooks;
-        setBook(responseData.list);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const findAllBooksFeatured = (value:BookQuery ) => {
+  const findAllBooksFeatured = (value: BookQuery) => {
     fetchAllBooks(value)
       .then((res) => {
         const responseData = res.data.data.findAllBooks;
@@ -49,7 +32,44 @@ const HomePage: FC = () => {
         console.log(err);
       });
   };
-  return <Homeview filter={filter} featuredBook={featuredBook} data={book} setFilter={setFilter} />;
+
+  const fetchTopSaler = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/admin/dashboard/top-saler');
+      
+      // Kiểm tra nếu response không phải là JSON (có thể do lỗi server trả về trang HTML)
+      if (!response.ok) {
+        throw new Error('Server không phản hồi đúng dữ liệu hoặc API không tồn tại.');
+      }
+      console.log(response)
+      // Thử chuyển đổi phản hồi thành JSON
+      const data = await response.json();
+      
+      console.log(data)
+  
+      if (data.s === 200) {
+        setFeaturedBook(data.data); // Cập nhật list sản phẩm nổi bật từ top-saler
+      } else {
+        throw new Error('Dữ liệu không hợp lệ hoặc không có sản phẩm nổi bật.');
+      }
+    } catch (error) {
+      console.error('Error fetching top saler:', error);
+      // Hiển thị lỗi nếu có
+      alert(`Đã xảy ra lỗi khi tải sản phẩm phổ biến: `);
+    }
+  };
+  
+
+  const handleChangeFeatured = (val: string) => {
+    if (val === "new") {
+      setFilter({ ...filter, sortByEnum: SortBookByEnum.NEW });
+    }
+    if (val === "popular") {
+      fetchTopSaler();  // Gọi API top-saler khi "Phổ biến"
+    }
+  };
+
+  return <Homeview filter={filter} featuredBook={featuredBook} data={book} setFilter={setFilter} handleChangeFeatured={handleChangeFeatured} />;
 };
 
 export default HomePage;

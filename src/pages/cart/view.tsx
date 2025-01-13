@@ -51,7 +51,7 @@ const CartView: FC<CartViewProps> = (props) => {
 
   const columns: TableColumnsType<CartItemType> = [
     {
-      title: "Product",
+      title: "SẢN PHẨM",
       dataIndex: "book",
       key: "book",
       responsive: ["md"],
@@ -89,7 +89,7 @@ const CartView: FC<CartViewProps> = (props) => {
       ),
     },
     {
-      title: "Quantity",
+      title: "SỐ LƯỢNG",
       dataIndex: "quantity",
       key: "quantity",
       render: (_, item) => (
@@ -102,10 +102,12 @@ const CartView: FC<CartViewProps> = (props) => {
       ),
     },
     {
-      title: "Total price",
+      title: (
+        <span style={{ whiteSpace: "nowrap" }}>THÀNH TIỀN</span>
+      ),
       dataIndex: "price",
       key: "price",
-      render: (item) => <b style={{ color: "red" }}> {formatToVND(item)}</b>,
+      render: (item) => <b style={{ color: "red" }}>{formatToVND(item)}</b>,
     },
 
     {
@@ -116,7 +118,7 @@ const CartView: FC<CartViewProps> = (props) => {
           danger
           size={"small"}
         >
-          Remove all
+          XÓA TẤT CẢ
         </Button>
       ),
       key: "action",
@@ -127,7 +129,7 @@ const CartView: FC<CartViewProps> = (props) => {
           danger
           size={"small"}
         >
-          Remove
+          Xóa
         </Button>
       ),
     },
@@ -137,7 +139,7 @@ const CartView: FC<CartViewProps> = (props) => {
     <>
       <Spin spinning={loading} tip="Loading...">
         <span style={{ margin: "auto 0" }}>
-          <b style={{ fontSize: 20 }}>Cart </b>({cartItems.length} products)
+          <b style={{ fontSize: 20 }}>GIỎ HÀNG </b>({cartItems.length} sản phẩm)
         </span>
         <hr />
         <Row gutter={[10, 10]}>
@@ -205,12 +207,12 @@ const CartView: FC<CartViewProps> = (props) => {
           <Col md={9} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
             <Affix offsetTop={100}>
               <Card
-                title="CART TOTAL"
+                title="TỔNG GIÁ TRỊ ĐƠN HÀNG"
                 bordered={false}
                 style={{ width: "100%", border: "1px, solid" }}
               >
                 <Flex justify="space-between" align="flex-start">
-                  <b>Total Price</b>
+                  <b>Tổng giá</b>
                   <span style={{ color: "red", fontWeight: "bold" }}>
                     {formatToVND(totalPrice || 0)}
                   </span>
@@ -227,7 +229,7 @@ const CartView: FC<CartViewProps> = (props) => {
                     danger
                     onClick={onClickPlaceOrder}
                   >
-                    Place Order
+                    ĐẶT HÀNG
                   </Button>
                 </Flex>
               </Card>

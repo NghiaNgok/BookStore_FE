@@ -25,27 +25,27 @@ const ShowStatusComponent: FC<ShowStatusComponentProps> = (props) => {
       switch (status) {
         case OrderStatus.DONE:
           setColor(Color.SUCCESS);
-          setText("DONE");
+          setText("HOÀN THÀNH");
           break;
         case OrderStatus.INIT:
           setColor(Color.DEFAULT);
-          setText("ORDERED");
+          setText("ĐÃ ĐẶT HÀNG");
           break;
         case OrderStatus.INPROGRESS:
           setColor(Color.WARNING);
-          setText("WAITING PICKUP");
+          setText("CHỜ LẤY HÀNG");
           break;
         case OrderStatus.APPROVED:
           setColor(Color.CYAN);
-          setText("ACCEPTED");
+          setText("ĐÃ CHẤP NHẬN");
           break;
         case OrderStatus.SHIPING:
           setColor(Color.GEEKBLUE);
-          setText("DELIVERING");
+          setText("ĐANG GIAO HÀNG");
           break;
         case OrderStatus.REJECTED:
           setColor(Color.ERROR);
-          setText("CANCLLED");
+          setText("ĐÃ HỦY BỎ");
           break;
         default:
           break;

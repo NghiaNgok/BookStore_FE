@@ -15,6 +15,7 @@ interface HomeViewProps {
   featuredBook: IBook[] | undefined;
   filter: BookQuery;
   setFilter: (value: BookQuery) => void;
+  handleChangeFeatured: (val: string) => void;  // Nhận prop handleChangeFeatured
 }
 
 const contentStyle: React.CSSProperties = {
@@ -27,21 +28,13 @@ const contentStyle: React.CSSProperties = {
 };
 
 const Homeview: FC<HomeViewProps> = (props) => {
-  const { data, setFilter, filter, featuredBook } = props;
+  const { data, setFilter, filter, featuredBook, handleChangeFeatured } = props;
   const navigate = useNavigate();
-
-  const handleChangeFeatured = (val: string) => {
-    if (val === "new") {
-      setFilter({ ...filter, sortByEnum: SortBookByEnum.NEW });
-    }
-    if (val === "popular") {
-      setFilter({ ...filter, sortByEnum: SortBookByEnum.POPULAR });
-    }
-  };
 
   const onClickViewAllButton = () => {
     navigate(CUSTOMER_PATH.SHOP);
   };
+
   return (
     <ConfigProvider
       theme={{
@@ -55,44 +48,15 @@ const Homeview: FC<HomeViewProps> = (props) => {
           padding: 10,
         },
       }}>
-      <div style={contentStyle}>
-        <Flex justify="space-between" align="center" gap="small">
-          <img
-            src="https://res.cloudinary.com/dyo7rdbmx/image/upload/v1717641347/Sale-Free-PNG-Image_bsimtf.png"
-            width={100}
-          />
-          <Button
-            onClick={onClickViewAllButton}
-            style={{ width: "5rem", height: "3rem" }}
-            type="link">
-            View all
-          </Button>
-        </Flex>
-        <hr />
-        <Flex wrap justify="center" align="center" gap={10}>
-          {data && data?.length > 0 ? (
-            data?.map((item) => <CardComponent key={item.id} item={item} />)
-          ) : (
-            <Empty
-              style={{ width: "40rem" }}
-              description={<span>Sorry! No product discount now :(</span>}
-            />
-          )}
-        </Flex>
-      </div>
       <div style={{ textAlign: "center" }}>
-        <h1>FEATURED PRODUCTS</h1>
+        <h1>CÁC SẢN PHẨM NỔI BẬT</h1>
         <Space size="large">
           <Button
             ghost={filter.sortByEnum === SortBookByEnum.NEW}
             onClick={() => handleChangeFeatured("new")}>
-            New
+            Mới
           </Button>
-          <Button
-            ghost={filter.sortByEnum === SortBookByEnum.POPULAR}
-            onClick={() => handleChangeFeatured("popular")}>
-            Popular
-          </Button>
+          
         </Space>
       </div>
       <div style={contentStyle}>
@@ -105,7 +69,7 @@ const Homeview: FC<HomeViewProps> = (props) => {
             ) : (
               <Empty
                 style={{ width: "40rem" }}
-                description={<span>Sorry! No product recommend now :</span>}
+                description="Xin lỗi! không có sản phẩm nào phổ biến bây giờ :("
               />
             )}
           </Flex>

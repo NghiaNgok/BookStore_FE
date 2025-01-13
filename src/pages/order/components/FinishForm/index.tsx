@@ -50,25 +50,25 @@ const FinishForm: FC<FinishFormProps> = (props) => {
 
       {/* Order Information */}
       <Col md={12} sm={24} xs={24} style={{ alignContent: "flex-start" }}>
-        <Card title="ORDER INFORMATION" bordered={false} style={containerStyle}>
+        <Card title="THÔNG TIN ĐƠN HÀNG" bordered={false} style={containerStyle}>
           <Flex justify="space-between" align="flex-start">
-            <b>Customer Name</b>
+            <b>Tên khách hàng</b>
             <span>{value.customerName}</span>
           </Flex>
           <Flex justify="space-between" align="flex-start">
-            <b>Phone Number</b>
+            <b>Số điện thoại</b>
             <span>{value.phoneNumber}</span>
           </Flex>
           <Flex justify="space-between" align="flex-start">
-            <b>Address</b>
+            <b>Địa chỉ giao hàng</b>
             <span>{value.address}</span>
           </Flex>
           <Flex justify="space-between" align="flex-start">
-            <b>Payment Method</b>
+            <b>Phương thức thanh toán</b>
             <span>{value.paymentMethod}</span>
           </Flex>
           <Flex justify="space-between" align="flex-start">
-            <b>Total Price</b>
+            <b>THÀNH TIỀN</b>
             <span style={{ color: "red", fontWeight: "bold" }}>
               {formatToVND(value.totalPrice)}
             </span>

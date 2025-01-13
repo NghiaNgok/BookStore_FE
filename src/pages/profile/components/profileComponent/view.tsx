@@ -51,7 +51,7 @@ const ProfileComponentView: FC<ProfileComponentViewProps> = (props) => {
               name="info"
               layout="vertical"
               onFinish={onFinishUpdateUser}>
-              <Form.Item label="Username" name="username">
+              <Form.Item label="Tên tài khoản" name="username">
                 <Input
                   prefix={<QqOutlined />}
                   defaultValue={userData?.username}
@@ -72,7 +72,7 @@ const ProfileComponentView: FC<ProfileComponentViewProps> = (props) => {
                 />
               </Form.Item>
               <Form.Item
-                label="Full Name"
+                label="Tên đầy đủ"
                 name="fullName"
                 rules={[
                   { required: true, message: "Please input your Full name !" },
@@ -84,7 +84,7 @@ const ProfileComponentView: FC<ProfileComponentViewProps> = (props) => {
                 />
               </Form.Item>
               <Form.Item
-                label="Address"
+                label="Địa chỉ"
                 name="address"
                 rules={[
                   { required: true, message: "Please input your address!" },
@@ -92,7 +92,7 @@ const ProfileComponentView: FC<ProfileComponentViewProps> = (props) => {
                 <Input prefix={<HomeOutlined />} placeholder="Address" />
               </Form.Item>
               <Form.Item
-                label="Phone Number"
+                label="Số điện thoại"
                 name="phoneNumber"
                 rules={[
                   { required: true, message: "Please input your Phone !" },
@@ -106,7 +106,7 @@ const ProfileComponentView: FC<ProfileComponentViewProps> = (props) => {
               </Form.Item>
               <Form.Item>
                 <Button block type="primary" htmlType="submit">
-                  Save
+                  Lưu
                 </Button>
               </Form.Item>
             </Form>

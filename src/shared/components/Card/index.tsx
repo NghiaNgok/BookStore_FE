@@ -12,10 +12,14 @@ interface CardComponentProps {
 }
 
 const cardStyle: React.CSSProperties = {
-  width: "12rem",
-  borderRadius: 0,
+  width: "13rem", // Chiều rộng cố định của card
+  minHeight: "300px", // Chiều cao tối thiểu của card
+  borderRadius: "8px", // Bo góc card
   padding: "10px",
   overflow: "hidden",
+  textAlign: "left",
+  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)", // Thêm bóng đổ
+  backgroundColor: "#fff", // Nền trắng
 };
 
 const { Meta } = Card;
@@ -46,27 +50,81 @@ const CardComponent: React.FC<CardComponentProps> = (props) => {
       hoverable
       style={cardStyle}
       cover={
-        <div style={{ width: "100%", height: "178px", textAlign: "center" }}>
+        <div style={{ width: "100%", height: "180px", textAlign: "center" }}>
           <img
-            style={{ borderRadius: 0, height: "100%", objectFit: "cover" }}
+            style={{
+              borderRadius: "8px",
+              height: "100%",
+              objectFit: "contain", // Đảm bảo ảnh không bị cắt hoặc méo
+              marginBottom: "10px",
+            }}
             alt="example"
             src={item.imageUrl}
           />
         </div>
       }
     >
-      <Flex vertical align="start" style={{ lineHeight: 2 }}>
-        <Rate disabled value={item.rate} style={{ fontSize: 15 }} />
-        <Meta title={item.title} />
+      <Flex vertical align="start" style={{ lineHeight: "1.5", gap: "10px" }}>
+        <Rate
+          disabled
+          value={item.rate}
+          style={{
+            fontSize: 15,
+            marginBottom: "8px", // Thêm khoảng cách với tên sản phẩm
+          }}
+        />
+        <Meta
+          title={
+            <Text
+              style={{
+                display: "-webkit-box", // Hiển thị theo dạng khối hộp
+                WebkitLineClamp: 3, // Giới hạn tối đa 3 dòng
+                WebkitBoxOrient: "vertical", // Cắt nội dung theo chiều dọc
+                overflow: "hidden", // Ẩn phần văn bản dư thừa
+                textOverflow: "ellipsis", // Thêm dấu "..." nếu tên dài hơn
+                fontSize: "14px", // Kích thước chữ
+                fontWeight: 500, // Độ đậm chữ
+                marginBottom: "8px", // Thêm khoảng cách dưới tiêu đề
+                lineHeight: "1.2em", // Tăng khoảng cách giữa các dòng
+                whiteSpace: "normal", // Cho phép xuống dòng nếu cần
+                maxHeight: "3.6em", // Cố định chiều cao (3 dòng)
+                height: "3.6em", // Cố định chiều cao tối đa của tiêu đề
+              }}
+            >
+              {item.title}
+            </Text>
+          }
+        />
         {item.bookPromotion.length > 0 ? (
           <Flex justify="flex-start" gap={10}>
-            <Text delete>{formatToVND(item.price)}</Text>
-            <Text strong type="danger">
+            <Text
+              delete
+              style={{
+                color: "#999", // Màu xám cho giá cũ
+                fontSize: "13px",
+              }}
+            >
+              {formatToVND(item.price)}
+            </Text>
+            <Text
+              strong
+              type="danger"
+              style={{
+                fontSize: "14px",
+              }}
+            >
               {formatToVND(discountedPrice)}
             </Text>
           </Flex>
         ) : (
-          <Text>{formatToVND(item.price)}</Text>
+          <Text
+            style={{
+              fontSize: "14px",
+              fontWeight: 600, // Làm đậm giá sản phẩm
+            }}
+          >
+            {formatToVND(item.price)}
+          </Text>
         )}
       </Flex>
     </Card>

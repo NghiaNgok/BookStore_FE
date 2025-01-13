@@ -14,7 +14,7 @@ const ResetComponentView: FC<ResetPasswordProps> = (props) => {
         <Form name="info" layout="vertical" onFinish={updatePassword}>
           <Form.Item
             name="currentPassword"
-            label="Current Password"
+            label="Mật khẩu hiện tại"
             rules={[
               {
                 required: true,
@@ -27,7 +27,7 @@ const ResetComponentView: FC<ResetPasswordProps> = (props) => {
           </Form.Item>
           <Form.Item
             name="newPassword"
-            label="New Password"
+            label="Mật khẩu mới"
             dependencies={["currentPassword"]}
             rules={[
               {
@@ -51,7 +51,7 @@ const ResetComponentView: FC<ResetPasswordProps> = (props) => {
           </Form.Item>
           <Form.Item
             name="confirm"
-            label="Confirm Password"
+            label="Nhập lại mật khẩu mới"
             dependencies={["newPassword"]}
             hasFeedback
             rules={[
@@ -75,7 +75,7 @@ const ResetComponentView: FC<ResetPasswordProps> = (props) => {
           </Form.Item>
           <Form.Item>
             <Button block type="primary" htmlType="submit">
-              Save
+              Lưu
             </Button>
           </Form.Item>
         </Form>

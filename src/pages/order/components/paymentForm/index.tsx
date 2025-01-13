@@ -56,14 +56,14 @@ const PaymentForm: React.FC<paymentFormFormProps> = (props) => {
       }}
       style={{ width: "50%" }}>
       <Form.Item
-        label="Payment Method"
+        label="Phương thức thanh toán"
         name="paymentMethod"
         rules={[{ required: true, message: "Please select payment method!" }]}>
         <Select
           onChange={(value) => setSelectPayment(value)}
           options={[
-            { value: PaymentMethod.COD, label: "Payment on delivery" },
-            { value: PaymentMethod.ONLINE_BANKING, label: "Online Banking" },
+            { value: PaymentMethod.COD, label: "Thanh toán khi nhận hàng" },
+            { value: PaymentMethod.ONLINE_BANKING, label: "Chuyển khoản online" },
           ]}
         />
       </Form.Item>
@@ -75,12 +75,12 @@ const PaymentForm: React.FC<paymentFormFormProps> = (props) => {
           style={{ width: "100%" }}
           type="primary"
           htmlType="submit">
-          Save
+          Lưu
         </Button>
       </Form.Item>
       {selectPayment !== PaymentMethod.COD ? (
         <Text italic type="danger">
-          Sorry! this feature is not ready yet T.T
+          Xin lỗi! Tính năng này chưa sẵn sàng T.T
         </Text>
       ) : (
         ""

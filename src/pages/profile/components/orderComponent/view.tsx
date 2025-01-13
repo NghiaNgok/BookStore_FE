@@ -29,7 +29,7 @@ const OrderComponentView: FC<OrderComponentViewProps> = (props) => {
 
   return (
     <>
-      <h3>ORDERS</h3>
+      <h3>CÁC ĐƠN HÀNG</h3>
       <hr />
       <div
         id="scrollableDiv"

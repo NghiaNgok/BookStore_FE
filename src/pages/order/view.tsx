@@ -71,7 +71,7 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
 
   const steps = [
     {
-      title: `Order's information`,
+      title: `Thông tin đơn hàng`,
       content: (
         <InfoForm
           setValue={setValue}
@@ -81,7 +81,7 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
       ),
     },
     {
-      title: "Payment Method",
+      title: "Phương thức thanh toán",
       content: (
         <PaymentForm
           setValue={setValue}
@@ -91,7 +91,7 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
       ),
     },
     {
-      title: "Finish",
+      title: "Hoàn thành",
       content: <FinishForm value={value} />,
     },
   ];
@@ -117,7 +117,7 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
         <div style={{ marginTop: 24, textAlign: "center" }}>
           {/* Display formatted total price */}
           <div style={{ marginBottom: 16, fontSize: 18, fontWeight: "bold" }}>
-            Total Price: {formatToVND(value.totalPrice || 0)}
+            TỔNG TIỀN: {formatToVND(value.totalPrice || 0)}
           </div>
           {current < steps.length - 1 && (
             <Button
@@ -125,17 +125,17 @@ const OrderView: React.FC<OrderPageProps> = (props) => {
               type="primary"
               onClick={() => next()}
             >
-              Next
+              Sau
             </Button>
           )}
           {current === steps.length - 1 && (
             <Button type="primary" onClick={onClickSubmitOrder}>
-              Submit order
+              Đặt hàng
             </Button>
           )}
           {current > 0 && (
             <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-              Previous
+              Trước
             </Button>
           )}
         </div>

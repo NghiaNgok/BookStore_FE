@@ -67,12 +67,12 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
     <div style={{ padding: 5 }}>
       <Flex align="center" justify="center" gap={20} vertical>
         <Search
-          placeholder="input search text"
+          placeholder="Nhập tên sản phẩm"
           onSearch={onSearch}
           style={{ width: 200, border: "1px solid" }}
         />
         <div style={filterContainerStyle}>
-          <h3>Category</h3>
+          <h3>Loại sản phẩm</h3>
           <Checkbox.Group
             style={{ display: "flex", flexDirection: "column", padding: 5 }}
             options={categoryOption}
@@ -90,7 +90,7 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
         </div> */}
 
         <div style={filterContainerStyle}>
-          <h3>Rate</h3>
+          <h3>Đánh giá</h3>
           <Checkbox.Group
             style={{ display: "flex", flexDirection: "column", padding: 5 }}
             options={ratingOption}

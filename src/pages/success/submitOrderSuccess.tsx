@@ -13,14 +13,14 @@ const OrderSuccessPage = () => {
   return (
     <Result
       status="success"
-      title="Successfully Created Order"
-      subTitle="Your Order has been created. Thank you very much !"
+      title="HOÀN TẤT ĐẶT HÀNG"
+      subTitle="Đơn hàng của bạn đã được khởi tạo. Cảm ơn bạn rất nhiều !"
       extra={[
         <Button onClick={onClickGoHome} type="primary" key="console">
-          Go Home
+          Về trang chủ
         </Button>,
         <Button onClick={onClickGoShopping} key="buy">
-          Continue Shopping
+          Tiếp tục mua hàng
         </Button>,
       ]}
     />

@@ -18,17 +18,17 @@ type MenuItem = Required<MenuProps>["items"][number];
 const items: MenuItem[] = [
   {
     key: "PROFILE",
-    label: "Profile",
+    label: "Thông tin tài khoản",
     icon: <UserOutlined />,
   },
   {
     key: "ORDERS",
-    label: "Orders",
+    label: "Đơn hàng của bạn",
     icon: <BarChartOutlined />,
   },
   {
     key: "RESET",
-    label: "Reset password",
+    label: "Đổi mật khẩu",
     icon: <KeyOutlined />,
   },
 ];

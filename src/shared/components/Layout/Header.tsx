@@ -69,11 +69,11 @@ const HeaderLayout: React.FC = () => {
   const itemsWithLogin: MenuProps["items"] = [
     {
       key: "1",
-      label: <Link to={CUSTOMER_PATH.PROFILE}>Profile</Link>,
+      label: <Link to={CUSTOMER_PATH.PROFILE}>Thông tin tài khoản</Link>,
     },
     {
       key: "2",
-      label: "Sign Out",
+      label: "Đăng xuất",
       onClick: () => handleLogoutApi(),
     },
   ];
@@ -95,13 +95,13 @@ const HeaderLayout: React.FC = () => {
           align="center"
           className="header-pc">
           <Button style={contentStyle} type="link">
-            <Link to={CUSTOMER_PATH.HOME}>Home</Link>
+            <Link to={CUSTOMER_PATH.HOME}>TRANG CHỦ</Link>
           </Button>
           <Button style={contentStyle} type="link">
-            <Link to={CUSTOMER_PATH.SHOP}>Shop</Link>
+            <Link to={CUSTOMER_PATH.SHOP}>CỬA HÀNG</Link>
           </Button>
           <Button style={contentStyle} type="link">
-            <Link to={CUSTOMER_PATH.ABOUT}>About</Link>
+            <Link to={CUSTOMER_PATH.ABOUT}>VỀ CHÚNG TÔI</Link>
           </Button>
           {userStore ? (
             <Button style={contentStyle} type="link">
@@ -141,7 +141,7 @@ const HeaderLayout: React.FC = () => {
             <Menu>
               <Menu.Item>
                 <Link to={CUSTOMER_PATH.HOME} onClick={onClose}>
-                  Home
+                  Trang chủ
                 </Link>
               </Menu.Item>
               <Menu.Item>
@@ -151,7 +151,7 @@ const HeaderLayout: React.FC = () => {
               </Menu.Item>
               <Menu.Item>
                 <Link to={CUSTOMER_PATH.ABOUT} onClick={onClose}>
-                  About
+                  Về chúng tôi
                 </Link>
               </Menu.Item>
             </Menu>

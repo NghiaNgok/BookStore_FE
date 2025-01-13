@@ -54,14 +54,14 @@ const InfoForm: React.FC<infoFormProps> = (props) => {
       }}
       style={{ width: "50%" }}>
       <Form.Item
-        label="Customer Name"
+        label="Tên khách hàng"
         name="customerName"
         rules={[{ required: true, message: "Please input name!" }]}>
         <Input />
       </Form.Item>
 
       <Form.Item
-        label="Phone Number"
+        label="Số điện thoại"
         name="phoneNumber"
         rules={[
           { required: true, message: "Please input phone number!" },
@@ -71,7 +71,7 @@ const InfoForm: React.FC<infoFormProps> = (props) => {
       </Form.Item>
 
       <Form.Item
-        label="Address"
+        label="Địa chỉ giao hàng"
         name="address"
         rules={[{ required: true, message: "Please input address!" }]}>
         <Input />
@@ -79,7 +79,7 @@ const InfoForm: React.FC<infoFormProps> = (props) => {
 
       <Form.Item>
         <Button style={{ width: "100%" }} type="primary" htmlType="submit">
-          Save
+          Lưu
         </Button>
       </Form.Item>
     </Form>

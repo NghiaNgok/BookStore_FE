@@ -26,7 +26,7 @@ const SignInView: React.FC<SignViewProps> = (props) => {
   const { onFinishFailed, onFinish } = props;
   return (
     <Flex align="center" justify="center" vertical style={containerStyle}>
-      <h1>SIGNIN FORM</h1>
+      <h1>ĐĂNG NHẬP</h1>
       <hr />
       <Form
         // style={formStyle}
@@ -55,11 +55,11 @@ const SignInView: React.FC<SignViewProps> = (props) => {
         <Form.Item>
           <Flex justify="space-between" wrap gap={10}>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox>Ghi nhớ mật khẩu</Checkbox>
             </Form.Item>
 
             <a className="login-form-forgot" href="">
-              Forgot password
+              Quên mật khẩu
             </a>
           </Flex>
         </Form.Item>
@@ -70,10 +70,10 @@ const SignInView: React.FC<SignViewProps> = (props) => {
               type="primary"
               htmlType="submit"
               className="login-form-button">
-              Sign In
+              Đăng nhập
             </Button>
             <span>
-              Or <Link to={AUTH_PATH.SIGNUP}>signup now !</Link>
+              Hoặc <Link to={AUTH_PATH.SIGNUP}>Đăng ký ngay bây giờ!</Link>
             </span>
           </Flex>
         </Form.Item>

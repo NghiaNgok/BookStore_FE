@@ -82,9 +82,8 @@ const ShopView: FC<ShopViewProps> = (props) => {
                     defaultValue="ALL"
                     style={{ width: 150, marginBottom: 20, border: "1px solid", borderRadius: 5 }}
                     onChange={onChangeSort}>
-                    <Option value="ALL">All</Option>
-                    <Option value="NEW">Sort by New</Option>
-                    <Option value="ON_SALE"> Sort by On Sale</Option>
+                    <Option value="ALL">Tất cả</Option>
+                    <Option value="NEW">Sắp xếp theo mới</Option>
                   </Select>
                 </Flex>
                 <div style={{ minHeight: "120vh" }}>

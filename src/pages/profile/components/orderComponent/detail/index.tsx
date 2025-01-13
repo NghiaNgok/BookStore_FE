@@ -137,7 +137,7 @@ const DetailModal: FC<DetailModalProps> = (props) => {
               bordered={false}
               style={containerStle}>
               <Flex justify="space-between" align="flex-start">
-                <b>Customer Name</b>
+                <b>Tên khách hàng</b>
                 <span>{detailOrder?.customerName}</span>
               </Flex>
               <Flex justify="space-between" align="flex-start">
@@ -153,7 +153,7 @@ const DetailModal: FC<DetailModalProps> = (props) => {
                 <span>{detailOrder?.paymentMethod}</span>
               </Flex>
               <Flex justify="space-between" align="flex-start">
-                <b>Total Price</b>
+                <b>Thành tiền</b>
                 <span style={{ color: "red", fontWeight: "bold" }}>
                   $ {detailOrder?.totalPrice}
                 </span>
