@@ -11,7 +11,7 @@ import {
   MenuProps,
 } from "antd";
 import { AUTH_PATH, CUSTOMER_PATH } from "../../constants/path";
-import logo from "../../../assets/logo_fashion.jpg";
+import logo from "../../../assets/440273607_289221874255447_4057101947699803525_n.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ShoppingCartOutlined,
