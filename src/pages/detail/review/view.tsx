@@ -170,7 +170,7 @@ const ReviewView: FC<ReviewViewProps> = (props) => {
               <Option value="Khác">Khác</Option>
             </Select>
             <span style={{ marginLeft: 10 }}>
-              ({sentimentSummary.positive} Tích cực, {sentimentSummary.neutral} Trung tính, {sentimentSummary.negative} Tích cực)
+              ({sentimentSummary.positive} Tích cực, {sentimentSummary.neutral} Trung tính, {sentimentSummary.negative} Tiêu cực)
             </span>
           </div>
 
